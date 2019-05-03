@@ -1,13 +1,21 @@
-# Simple Smart Contract
+# Smart Financial Instruments
+v.0.0.1
 
 ### Description
-Provide a short introduction or overview that explains what the contract does.
+Smart contract infrastructure for permissionless creation and submission of financial instruments into decentralized token exchange platforms like IDEX and Ether Delta.
 
 ### Customization
-If applicable, provide customization options and instructions
+DEX Developers should be able to submit their own SFIs by implementing any abstract standards they might desire.
+```
+contract LeveragedStopLimit is Leveraged {
+  // some cool stuff
+}
+```
 
 ### Contributors
-List the contributors to this repository
+Carlos Noverón
+Dulce Villarreal
+Leonel Macario
 
 ### License
-Describe the license (MIT, Apache, etc.)
+GNU GPLv3
