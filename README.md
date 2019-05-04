@@ -20,8 +20,8 @@ contract LeveragedPosition is Collateralized, Position {
 ```
 
 ### Contributors
-- Carlos Noverón
-- Michell Contreras
+- Carlos Noverón: Smart contract developer, original idea.
+- Dulce Villarreal: Project Manager
 
 ### License
 GNU GPLv3
