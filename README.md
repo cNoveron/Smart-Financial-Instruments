@@ -13,9 +13,8 @@ contract LeveragedStopLimit is Leveraged {
 ```
 
 ### Contributors
-Carlos Noverón
-Dulce Villarreal
-Leonel Macario
+- Carlos Noverón
+- Michell Contreras
 
 ### License
 GNU GPLv3
