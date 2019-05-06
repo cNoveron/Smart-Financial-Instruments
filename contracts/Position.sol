@@ -2,19 +2,21 @@ pragma solidity >=0.4.21 <0.6.0;
 
 contract Position {
 
-  mapping(address => uint) balance;
   string public positionType;
   uint256 public paperProfit;
-  address trader;
+  address borrower;
 
-  constructor (bool _positionType) public {
+  constructor (bool _positionType) internal {
     positionType = _positionType ? "LONG" : "SHORT";
-    trader = msg.sender;
+    paperProfit = 0;
+    borrower = msg.sender;
   }
 
   function closePosition() public {
-    require(trader == msg.sender,"Position.closePosition: Only the trader who opened this position can close it");
-    // more logic...
+    require(borrower == msg.sender,"Position.closePosition: Only the borrower who opened this position can close it");
+    _closePosition();
   }
 
+  function _closePosition() private;
+  
 }
