@@ -12,11 +12,11 @@ contract LeveragedPosition is Collateralized, Position {
 
   constructor(
     uint8 _positionType,
-    string memory _collateralSymbol, string memory _quoteSymbol,
+    address _collateralSymbol,
     uint _ratio, address _trader, uint256 _tradersFunds
   )
-  Collateralized(_collateralSymbol,_quoteSymbol)
   Position(_positionType)
+  Collateralized(_collateralSymbol)
   public payable {
     require(1 < _ratio, "Leveraged constructor: Ratio must be greater than 1");
     require(_trader != address(0), "Leveraged constructor: Address zero is universally invalid");
