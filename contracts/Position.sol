@@ -1,22 +1,41 @@
 pragma solidity >=0.4.21 <0.6.0;
 
-contract Position {
+import "./Ownable.sol";
 
-  string public positionType;
-  uint256 public paperProfit;
-  address borrower;
+contract Positions is Ownable {
 
-  constructor (bool _positionType) internal {
-    positionType = _positionType ? "LONG" : "SHORT";
-    paperProfit = 0;
-    borrower = msg.sender;
+  uint256 openingCost;
+  uint256 equity;
+  Position[] list;
+  uint256 listSize;
+  uint256 constant MAX_LIST_SIZE = 2**256-1;
+
+  struct Position {
+    string positionType;
+    uint256 paperProfit;
+    address borrower;
   }
 
-  function closePosition() public {
-    require(borrower == msg.sender,"Position.closePosition: Only the borrower who opened this position can close it");
-    _closePosition();
+  constructor () internal {
   }
 
-  function _closePosition() private;
-  
+  function open(bool _isLong, address _borrower)
+  internal returns(uint256) {
+    require(
+      listSize < MAX_LIST_SIZE,
+      "Positions.open: MAX_LIST_SIZE reached"
+    );
+    return listSize = list.push(Position(_isLong ? "LONG" : "SHORT", 0, _borrower));
+  }
+
+  function settle(uint positionId) internal {
+    require(
+      msg.sender == list[positionId].borrower,
+      "Position.settle: Only the borrower who opened this position can close it"
+    );
+    _settle();
+  }
+
+  function _settle() private;
+
 }
