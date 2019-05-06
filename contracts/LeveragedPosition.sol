@@ -1,9 +1,9 @@
 pragma solidity >=0.4.21 <0.6.0;
 
-import "./Position.sol";
-import "./Collateralized.sol";
+import "./ERC20_Position.sol";
+import "./ERC20_Collateralized.sol";
 
-contract LeveragedPosition is Collateralized, Position {
+contract LeveragedPosition is ERC20_Collateralized, ERC20_Position {
 
   uint ratio;
   address public trader;
@@ -12,17 +12,16 @@ contract LeveragedPosition is Collateralized, Position {
 
   constructor(
     bool _positionType,
-    address _collateralSymbol,
+    address _collateralSymbol, address _ERC20_asset,
     uint _ratio, address _trader, uint256 _tradersFunds
   )
-  Collateralized(_collateralSymbol)
-  Position(_positionType)
+  ERC20_Collateralized(_collateralSymbol)
+  ERC20_Position(_positionType, _ERC20_asset)
   public payable {
     require(1 < _ratio, "Leveraged constructor: Ratio must be greater than 1");
     require(_trader != address(0), "Leveraged constructor: Address zero is universally invalid");
     uint initialBalance = _tradersFunds * ratio;
     require(initialBalance == msg.value, "Leveraged constructor: You must send the apropiate amount of margin currency");
-    balance[_trader] = initialBalance;
     ratio = _ratio;
     trader = _trader;
     borrower = msg.sender;
