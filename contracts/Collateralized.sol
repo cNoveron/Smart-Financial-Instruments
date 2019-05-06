@@ -1,13 +1,13 @@
 pragma solidity >=0.4.21 <0.6.0;
 
+import "../node_modules/openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
+
 contract Collateralized {
 
-  string public collateralSymbol;
-  string public quoteSymbol;
+  address collateralAddress;
 
-  constructor (string memory _collateralSymbol, string memory _quoteSymbol) public {
-    collateralSymbol = _collateralSymbol;
-    quoteSymbol = _quoteSymbol;
+  constructor (address _collateralAddress) public {
+    collateralAddress = _collateralAddress;
   }
 
 }
