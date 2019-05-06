@@ -2,10 +2,10 @@ pragma solidity >=0.4.21 <0.6.0;
 
 contract Collateralized {
 
-  address collateralAddress;
+  address public collateral;
 
-  constructor (address _collateralAddress) public {
-    collateralAddress = _collateralAddress;
+  constructor (address _collateral) internal {
+    collateral = _collateral;
   }
 
 }
