@@ -10,11 +10,13 @@ contract ERC20_Collateralized is Collateralized {
 
   string public quoteSymbol;
   IERC20 ERC20_interface;
-  bytes4 public _INTERFACE_ID_ERC20;
-  bytes4 public constant _INTERFACE_ID_ERC165 = 0x01ffc9a7;
 
-  constructor (address _collateralAddress)
-  Collateralized(_collateralAddress)
+  // should be later replaced with its bytes4 interfaceId assigned to a constant variable
+  // i.e. bytes4 public constant _INTERFACE_ID_ERC20 = 0xWHATEVER;
+  bytes4 public _INTERFACE_ID_ERC20;
+
+  constructor (address _collateral)
+  Collateralized(_collateral)
   public {
     _INTERFACE_ID_ERC20 = ERC20_interface.transfer.selector ^
       ERC20_interface.approve.selector ^
@@ -22,7 +24,10 @@ contract ERC20_Collateralized is Collateralized {
       ERC20_interface.totalSupply.selector ^
       ERC20_interface.balanceOf.selector ^
       ERC20_interface.allowance.selector;
-    require(_collateralAddress._supportsInterface(_INTERFACE_ID_ERC20), "ERC20_Collateralized constructor: Collateral is not ERC20");
+    require(
+      _collateral._supportsInterface(_INTERFACE_ID_ERC20),
+      "ERC20_Collateralized constructor: Collateral is not ERC20"
+    );
   }
 
 }
