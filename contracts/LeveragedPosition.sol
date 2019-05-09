@@ -1,9 +1,8 @@
 pragma solidity >=0.4.21 <0.6.0;
 
 import "./ERC20_Position.sol";
-import "./ERC20_Collateralized.sol";
 
-contract LeveragedPosition is ERC20_Collateralized, ERC20_Position {
+contract LeveragedPosition is ERC20_Positions {
 
   uint ratio;
   address public trader;
@@ -12,11 +11,9 @@ contract LeveragedPosition is ERC20_Collateralized, ERC20_Position {
 
   constructor(
     bool _positionType,
-    address _collateralSymbol, address _ERC20_asset,
+    address _collateralSymbol, address _ERC20_asset, address _borower,
     uint _ratio, address _trader, uint256 _tradersFunds
   )
-  ERC20_Collateralized(_collateralSymbol)
-  ERC20_Position(_positionType, _ERC20_asset)
   public payable {
     require(1 < _ratio, "Leveraged constructor: Ratio must be greater than 1");
     require(_trader != address(0), "Leveraged constructor: Address zero is universally invalid");

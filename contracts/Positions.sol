@@ -7,39 +7,42 @@ contract Positions is Ownable {
 
   using SafeMath for uint256;
 
-  uint256 openingCost;
-  uint256 equity;
   Position[] list;
   uint256 listSize;
   uint256 constant MAX_LIST_SIZE = 2**256-1;
+  uint256 openingCost;
 
   struct Position {
+    address asset;
     string positionType;
-    uint256 paperProfit;
     address borrower;
     bool open;
   }
 
   constructor () internal {
     openingCost = 0;
-    equity = 0;
     listSize = 0;
   }
 
-  function open(bool _isLong, address _borrower)
-  internal onlyOwner() returns(uint256) {
+  function open(address _asset, bool _isLong, address _borrower)
+  internal returns(uint256) {
     require(
       listSize < MAX_LIST_SIZE,
       "Positions.open: MAX_LIST_SIZE reached"
     );
-    return _open(_isLong, _borrower);
+    return _open(_asset, _isLong, _borrower);
   }
 
-  function _open(bool _isLong, address _borrower)
+  function _open(address _asset, bool _isLong, address _borrower)
   private returns(uint256) {
     openingCost.add(msg.value);
-    return listSize = list.push(Position(_isLong ? "LONG" : "SHORT", 0, _borrower, true));
+    return listSize = list.push(
+      Position(_asset, _isLong ? "LONG" : "SHORT", _borrower, true)
+    );
   }
+
+  function paperProfit(uint positionId) internal returns(uint256);
+  function quotePrice(address _asset) internal returns(uint256);
 
   function settle(uint positionId)
   internal {
@@ -56,6 +59,7 @@ contract Positions is Ownable {
 
   function _settle(uint positionId)
   private {
+    openingCost.sub(quotePrice(list[positionId].asset));
     list[positionId].open = false;
   }
 

@@ -1,6 +1,10 @@
 # DEXterity: Smart Financial Instruments
 v.0.0.2
 
+### Team: Pied-Piper
+- Carlos Noverón: Smart contract developer, original idea.
+- Dulce Villarreal: Project Manager.
+
 ## Project idea
 Smart contract infrastructure for permissionless creation and submission of financial instruments into decentralized token exchange platforms like IDEX and Ether Delta.
 
@@ -11,7 +15,7 @@ SFIs have been inspired by the philosophy behind Decentralized Autonomous Organi
 
 We believe decentralized applications that are not allowing participation from the greater blockchain community into their smart contract infrastructures are overlooking the real purposes for which smart contracts were invented.
 
-## How to use SFIs
+### How to use SFIs
 Smart Traders/Brokers should be able to submit their own SFIs by implementing any abstract standards they might desire.
 ```
 contract LeveragedPosition is Collateralized, Position {
@@ -19,9 +23,9 @@ contract LeveragedPosition is Collateralized, Position {
 }
 ```
 
-### Contributors
-- Carlos Noverón: Smart contract developer, original idea.
-- Dulce Villarreal: Project Manager
+## To Do
+- Drizzle front end for each SFI
+- Integrate DEX contracts
 
 ### License
 GNU GPLv3
